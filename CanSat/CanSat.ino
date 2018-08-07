@@ -13,7 +13,7 @@ void setup() {
   // ensure BMP is connected
   if (!bmp.begin()) {  
     Serial.println(F("Could not find a valid BMP280 sensor, check wiring!"));
-    while (1);
+    //while (1);
   }
 
   // initialize MPU

@@ -22,13 +22,13 @@ float getAltitude(Adafruit_BMP280 bmp){
 
 // returns the temperature measured by the MPU6050
 float getTempMPU(){
-	int TEMP_OUT;
+	int TEMP;
 	Wire.beginTransmission(MPU_6050_addr);
 	Wire.write(TEMP_OUT);
 	Wire.endTransmission();
 	Wire.requestFrom(MPU_6050_addr,2);
-	TEMP_OUT = Wire.read() << 8 | Wire.read();
-	return (float)TEMP_OUT/340 + 36.53;
+	TEMP = Wire.read() << 8 | Wire.read();
+	return (float)(TEMP/340 + 36.53);
 }
 
 // returns the acceleration measured by MPU6050
