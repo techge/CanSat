@@ -3,20 +3,23 @@
 
 // these need to get installed seperately (via Sketch -> Include Library)
 #include <Adafruit_BMP280.h> // "Adafruit BMP280 Library"
-#include <Adafruit_Sensor.h> // "Adafruit Unified Senesor"
+#include <Adafruit_Sensor.h> // "Adafruit Unified Sensor"
 
 // register declarations
 const int MPU_6050_addr=0x68;
-const byte PWR_MGT_1 = 0x6B;
+const byte PWR_MGMT_1 = 0x6B;
 const byte WHO_AM_I = 0x75;
 const byte TEMP_OUT = 0x41;
 const byte ACCEL_OUT = 0x3B;
+const byte GYRO_OUT=0X43;
 const byte ACCEL_CONFIG = 0x1C;
+const byte GYRO_CONFIG = 0x1B;
 
 // global variables
+//unsigned long timer;
 const float LM35step = 0.4887686; // LM35 sensor ADC step in 0.1 mV
-const int LM35Pin = A5; // Analog pin used for LM35 sensor
-const float seaLevelhPa = 1013.25; // must be adapted to local forcast to be accurate!!!
+const int LM35Pin = A0; // Analog pin used for LM35 sensor
+const float seaLevelhPa = 1010; // must be adapted to local forcast to be accurate!!!
 
 // defining the digital pins used for the BMP
 #define BMP_SCK 13
@@ -60,3 +63,4 @@ void sendData();
 // receive a command from groundstation by XBee
 void recvCmd();
 
+//float getBatatas();

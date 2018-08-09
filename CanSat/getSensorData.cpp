@@ -35,6 +35,10 @@ float getTempMPU(){
 struct threeaxis getAccel(){
   float x, y, z;
   Wire.beginTransmission(MPU_6050_addr);
+  //Wire.write(PWR_MGMT_1);  //power management has to be set to 0 to wake up the sensor
+  //Wire.write(0);
+  //Wire.write(ACCEL_CONFIG);  //power management has to be set to 0 to wake up the sensor
+  //Wire.write(0b00010000);   //full scale range of accelerometer +-8g
   Wire.write(ACCEL_OUT);
   Wire.endTransmission(); 
   Wire.requestFrom((int)MPU_6050_addr, 6);
@@ -42,19 +46,32 @@ struct threeaxis getAccel(){
   y = Wire.read() << 8 | Wire.read();
   z = Wire.read() << 8 | Wire.read();
   struct threeaxis result;
-  result.x = x/4096;
+  result.x = x/4096;         //page29 of the registers map to obtain a value in g
   result.y = y/4096;
   result.z = z/4096;
   return result;
 }
 
 struct threeaxis getGyro(){
-  struct threeaxis result;
-  result.x = -1.0;
-  result.y = -1.0;
-  result.z = -1.0;
+  float x, y, z;
+  Wire.beginTransmission(MPU_6050_addr);
+  Wire.write(GYRO_OUT);
+  Wire.endTransmission(); 
+  Wire.requestFrom((int)MPU_6050_addr, 6);
+  x = Wire.read() << 8 | Wire.read();
+  y = Wire.read() << 8 | Wire.read();
+  z = Wire.read() << 8 | Wire.read();
+  struct threeaxis result;   // IS IT ASKING FOR A RTUCTURE TYPE THREEAXIS WITH THE NAME RESULT?
+  result.x = x/ 65.5;           //PAGE 31 OF THE REGISTER MAP obtain the value in º/s
+  result.y = y/ 65.5;
+  result.z = z/ 65.5;
   return result;
 }
+
+/*float getBatatas(){
+  batatas = millis();
+  return batatas;
+}*/
 
 // calculates the velocity (optional)
 float getVelo(){
