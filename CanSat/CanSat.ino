@@ -2,18 +2,15 @@
 #include <SPI.h>
 #include "getSensorData.h"
 
-//const byte PWR_MGT_1 = 0x6B;
-//const byte ACCEL_CONFIG = 0x1C;
-
 Adafruit_BMP280 bmp(BMP_CS, BMP_MOSI, BMP_MISO,  BMP_SCK);
 
 void setup() {
   
   // ensure BMP is connected
-  /*if (!bmp.begin()) {  
+  if (!bmp.begin()) {  
     Serial.println(F("Could not find a valid BMP280 sensor, check wiring!"));
-    //while (1);u
-  }*/
+    //while (1);
+  }
 
   // initialize MPU
   Wire.begin();
@@ -34,6 +31,7 @@ void loop() {
   // put your main code here, to run repeatedly:
 
   Serial.print(millis()); Serial.print(";");
+  Serial.print(getTempLM35()); Serial.print(";");
   Serial.print("The temperature (BMP280) is "); Serial.println(getTempBMP(bmp));
   Serial.print("The pressure (BMP280) is "); Serial.println(getPressure(bmp));
   Serial.print("The altitude (BMP280) is "); Serial.println(getAltitude(bmp));
