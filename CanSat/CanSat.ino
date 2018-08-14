@@ -1,4 +1,4 @@
-
+#include <Servo.h>
 #include <Wire.h>
 #include <SPI.h>
 #include "getSensorData.h"
@@ -6,9 +6,11 @@
 //Adafruit_BMP280 bmp; // I2C
 //Adafruit_BMP280 bmp(BMP_CS); // hardware SPI
 Adafruit_BMP280 bmp(BMP_CS, BMP_MOSI, BMP_MISO,  BMP_SCK);
+Servo myservo;
+int counter = 300;
 
 void setup() {
-
+  myservo.attach(6);
   Serial.begin(9600);
 
   // ensure BMP is connected
@@ -48,6 +50,8 @@ void setup() {
   Wire.write(0x08);                          //full scale range of gyroscope ± 500 °/s
   Wire.endTransmission();
   Serial.begin(9600);
+
+  myservo.write(0);
   
 }
 
@@ -66,6 +70,17 @@ void loop() {
   struct threeaxis gyr;
   gyr = getGyro();
   Serial.print(gyr.x);Serial.print(";");Serial.print(gyr.y);Serial.print(";");Serial.print(gyr.z);Serial.println(";");
-  delay(1000);
+  
+  if(acc.y < 0.1 && acc.y > -0.1){
+    myservo.write(90);
+    counter=0;
+  }
+
+  counter++;
+  if(counter == 30){
+    myservo.write(0);
+  }
+  
+  delay(100);
 
 }

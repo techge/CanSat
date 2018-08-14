@@ -1,0 +1,3 @@
+sudo minicom -b 9600 -D /dev/ttyUSB0 -C capture_test.csv
+
+
