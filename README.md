@@ -1,6 +1,6 @@
-# WeCanSet - CanSat hand-on satellite desing 2018
+# WeCanSat - CanSat hands-on satellite design 2018
 
-These are the files of the team "WeCanSat" of the CanSat course at the Technical University Berlin (Summer School 2018).
+These are the files of team "WeCanSat" of the CanSat course at the Technical University Berlin (Summer School 2018).
 
 This information is provided in the hope that it will be useful for other people trying to achieve something similar. 
 
